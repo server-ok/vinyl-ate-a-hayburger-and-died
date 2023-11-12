@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://3d cube wireframe.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://scripts/cube speen.gd" type="Script" id=2]
+
+[sub_resource type="SpatialMaterial" id=1]
+flags_unshaded = true
+
+[node name="Spatial" type="Spatial"]
+
+[node name="3d cube wireframe" type="MeshInstance" parent="."]
+portal_mode = 4
+include_in_bound = false
+allow_merging = false
+cast_shadow = 0
+generate_lightmap = false
+mesh = ExtResource( 1 )
+material/0 = SubResource( 1 )
+script = ExtResource( 2 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5 )

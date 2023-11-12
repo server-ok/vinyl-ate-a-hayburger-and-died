@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/hayburger.ogg-90aec5f13aa5936b29760d72264415a2.oggstr"
+
+[deps]
+
+source_file="res://music/hayburger.ogg"
+dest_files=[ "res://.import/hayburger.ogg-90aec5f13aa5936b29760d72264415a2.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,68 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://scripts/item.gd" type="Script" id=1]
+[ext_resource path="res://theme.tres" type="Theme" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
+[ext_resource path="res://sounds/544332__tosha73__cell-phone-interference.wav" type="AudioStream" id=4]
+[ext_resource path="res://sounds/56204__ldk1609__violin-spiccato-c4.wav" type="AudioStream" id=5]
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.190476 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture2D" id=4]
+gradient = SubResource( 3 )
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2( 0.489884, 0.5 )
+
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0, 1 ), 0.0, -0.8615, 0, 0, Vector2( 1, 0 ), -2.99061, 0.0, 0, 0 ]
+
+[node name="item" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_left = -144.0
+margin_top = -63.0
+margin_right = 145.0
+margin_bottom = -30.0
+theme = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[center][wave]HI IM ITEM"
+text = "HI IM ITEM"
+fit_content_height = true
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+texture = SubResource( 4 )
+direction = Vector2( 0, 0 )
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 358.03
+orbit_velocity = 0.5
+orbit_velocity_random = 0.4
+damping = 100.0
+scale_amount = 0.4
+scale_amount_random = 1.0
+scale_amount_curve = SubResource( 5 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+volume_db = 1.237
+pitch_scale = 1.55
+autoplay = true
+attenuation = 1.86607
+bus = "sound"
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+pitch_scale = 0.81
+bus = "sound"

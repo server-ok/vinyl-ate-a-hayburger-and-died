@@ -1,0 +1,57 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://sprites/pon/walk3.png" type="Texture" id=1]
+[ext_resource path="res://scripts/walkHandler.gd" type="Script" id=2]
+[ext_resource path="res://sprites/pon/idle.png" type="Texture" id=3]
+[ext_resource path="res://sprites/pon/walk5.png" type="Texture" id=4]
+[ext_resource path="res://sprites/pon/walk4.png" type="Texture" id=5]
+[ext_resource path="res://sprites/pon/walk2.png" type="Texture" id=6]
+[ext_resource path="res://sprites/pon/walk1.png" type="Texture" id=7]
+[ext_resource path="res://sprites/pon/walk6.png" type="Texture" id=8]
+[ext_resource path="res://hpHandler.gd" type="Script" id=9]
+[ext_resource path="res://sounds/223855__secretmojo__60hz-line-noise.wav" type="AudioStream" id=10]
+[ext_resource path="res://sounds/442673__matrixxx__white-noise-05-sec.wav" type="AudioStream" id=11]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 28, 6.5 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 6 ), ExtResource( 1 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "walk",
+"speed": 12.0
+} ]
+
+[node name="KinematicBody2D" type="KinematicBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 31 )
+shape = SubResource( 1 )
+
+[node name="walkHandler" type="Node2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 1, 0 )
+frames = SubResource( 2 )
+animation = "walk"
+frame = 3
+
+[node name="hpHandler" type="Node2D" parent="."]
+script = ExtResource( 9 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="hpHandler"]
+stream = ExtResource( 10 )
+bus = "sound"
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="hpHandler"]
+stream = ExtResource( 11 )
+volume_db = -80.0
+autoplay = true
+bus = "sound"
