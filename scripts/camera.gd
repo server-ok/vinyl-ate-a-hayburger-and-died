@@ -15,8 +15,9 @@ var lookatvinyl = true
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 var et = .0
 func _process(delta):
+	player=get_node("../player")
 	if lookatvinyl:
-		global_position = player.global_position+player.get_node("walkHandler").velocity*150
+		global_position = player.global_position+(player.get_node("walkHandler").velocity if player is KinematicBody2D else player.move*2)*150
 	et+=delta
 	rotation_degrees = sin(et)*10
 	if Input.is_action_pressed("DEBUG"):

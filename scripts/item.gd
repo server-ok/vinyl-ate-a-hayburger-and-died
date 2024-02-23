@@ -13,21 +13,25 @@ onready var particle = get_node("CPUParticles2D")
 export var texture : Texture
 
 var dialogues = ["but nothing happened", "did something happen", "yeah something probably happened", "uh i guess something is coming", "about right now"]
+var dialogue_pacman = "ASTORIA Соус майонезный СМЕТАННЫЙ С ГРИБАМИ к мясу"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	text.percent_visible = 0.0
 	text.bbcode_text="[center][wave]"+dialogues[world.collected].to_upper()
-	if texture != null: sprite.texture=texture
+	if texture != null: $Sprite.texture=texture
 	
+func set_texture(texture:Texture):
+	sprite.texture=texture
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 var inter = false
 var death = 2.0
 var radius = 100
 func _process(delta):
+	player=get_node("../player")
 	if !inter and world.collected!=world.tocollect:
-		text.bbcode_text="[center][wave]"+dialogues[world.collected].to_upper()
+		text.bbcode_text="[center][wave]"+dialogues[world.collected].to_upper() if player is KinematicBody2D else dialogue_pacman
 	if !inter && player.global_position.distance_to(global_position) <= radius:
 		inter = true
 		$AudioStreamPlayer2D2.play()

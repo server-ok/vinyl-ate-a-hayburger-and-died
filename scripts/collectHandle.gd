@@ -11,10 +11,13 @@ var octavia = preload("res://OCTAVIA.tscn")
 func collect(much):
 	collected=much
 	if collected >= tocollect:
-		$player/walkHandler.set_process(false)
-		$player/walkHandler.velocity=Vector2.ZERO
-		$player/AnimatedSprite.stop()
-		$player/AnimatedSprite.scale.x = -1
+		if $player is KinematicBody2D:
+			$player/walkHandler.set_process(false)
+			$player/walkHandler.velocity=Vector2.ZERO
+			$player/AnimatedSprite.stop()
+			$player/AnimatedSprite.scale.x = -1
+		else:
+			$player.set_physics_process(false)
 		for i in get_tree().get_nodes_in_group("monster"):
 			i.queue_free()
 		wallerp = 0.0
@@ -24,11 +27,13 @@ func collect(much):
 		o.connect("OCTAVIA_IS_DEAD", self, "end")
 		
 func end():
-	$Camera2D.lookatvinyl = false
-	var t = get_tree().create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
-	t.tween_property($player/AnimatedSprite, "position", Vector2(0, -1000), 1)
-	t.connect("finished", self, "trueend")
-	
+	if $player is KinematicBody2D:
+		$Camera2D.lookatvinyl = false
+		var t = get_tree().create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
+		t.tween_property($player/AnimatedSprite, "position", Vector2(0, -1000), 1)
+		t.connect("finished", self, "trueend")
+	else:
+		trueend()
 func trueend():
 	yield(get_tree().create_timer(1.23), "timeout")
 	get_tree().change_scene("res://end.tscn")

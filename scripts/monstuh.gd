@@ -18,12 +18,19 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 var sleep = 0.0
 var smart = 1
+var boom = preload("res://boom.tscn")
 func _physics_process(delta):
+	player=get_node("../player")
 	$Sprite.texture.noise.seed+=1
 	nav.set_target_location(player.global_position)
 	nav.set_velocity((global_position.direction_to(nav.get_next_location()))*speed)
 	if global_position.distance_to(player.global_position)<=nav.target_desired_distance:
-		player.get_node("hpHandler").dmg(1)
+		if player is KinematicBody2D:
+			player.get_node("hpHandler").dmg(1)
+		else:
+			var j = boom.instance()
+			j.global_position=global_position
+			get_tree().get_root().call_deferred("add_child", j)
 #		queue_free()
 		speed = speed*1.2
 		scale = scale*1.3
